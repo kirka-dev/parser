@@ -1,5 +1,5 @@
 import psycopg2
-from database.config import host, user, password, database
+from config import host, user, password, database
 from parsers.brandshop import Brandshop
 from parsers.sneakerhead import Sneakerhead
 from parsers.streetbeat import Streetbeat
