@@ -25,7 +25,6 @@ class Streetbeat:
     options.add_argument("blink-settings=imagesEnabled=false")
     browser = webdriver.Chrome(service=service, desired_capabilities=desired_capabilities, options=options)
 
-
     stealth(
         browser,
         languages=["en-US", "en"],
@@ -43,12 +42,23 @@ class Streetbeat:
 
     def parser(self):
         Streetbeat.browser.get(self)
-        price = WebDriverWait(
-            driver=Streetbeat.browser,
-            timeout=15,
-            ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__default"))).get_attribute("innerHTML")
-        result = Converter.price(price)
+
+        try:
+            price = WebDriverWait(
+                driver=Streetbeat.browser,
+                timeout=15,
+                ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+            ).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__discount"))).get_attribute("innerHTML")
+
+        except:
+            price = WebDriverWait(
+                driver=Streetbeat.browser,
+                timeout=15,
+                ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+            ).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__default"))).get_attribute("innerHTML")
+
+        finally:
+            result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
