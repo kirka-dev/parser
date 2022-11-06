@@ -9,6 +9,7 @@ from enums.stores import Stores
 from multiprocessing import Pool
 import re
 from database.requests import Request
+
 useragent = UserAgent()
 
 options = webdriver.ChromeOptions()
