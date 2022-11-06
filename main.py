@@ -4,7 +4,6 @@ from parsers.sneakerhead import Sneakerhead
 from parsers.streetbeat import Streetbeat
 from parsers.superster import Superstep
 
-
 try:
     connection = psycopg2.connect(
         host="localhost",
@@ -18,8 +17,6 @@ try:
         Sneakerhead.start(cursor)
         Streetbeat.start(cursor)
         Superstep.start(cursor)
-
-
 
 except Exception as _ex:
     print("[ERROR]: ", _ex)
