@@ -4,6 +4,7 @@ from parsers.brandshop import Brandshop
 from parsers.sneakerhead import Sneakerhead
 from parsers.streetbeat import Streetbeat
 from parsers.superster import Superstep
+from parsers.lamoda import Lamoda
 
 try:
     connection = psycopg2.connect(
@@ -18,6 +19,8 @@ try:
         Sneakerhead.start(cursor)
         Streetbeat.start(cursor)
         Superstep.start(cursor)
+        Lamoda.start(cursor)
+
 
 except Exception as _ex:
     print("[ERROR]: ", _ex)

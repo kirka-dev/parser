@@ -42,8 +42,6 @@ class Streetbeat:
 
     def parser(self):
         Streetbeat.browser.get(self)
-        Streetbeat.browser.delete_all_cookies()
-        Streetbeat.browser.add_cookie({'name': 'user_city', 'value': '%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0'})
         price = WebDriverWait(
             driver=Streetbeat.browser,
             timeout=15,
