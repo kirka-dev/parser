@@ -1,4 +1,5 @@
 import psycopg2
+from database.config import host, user, password, database
 from parsers.brandshop import Brandshop
 from parsers.sneakerhead import Sneakerhead
 from parsers.streetbeat import Streetbeat
@@ -6,10 +7,10 @@ from parsers.superster import Superstep
 
 try:
     connection = psycopg2.connect(
-        host="localhost",
-        user="postgres",
-        password="1234",
-        database="bd"
+        host=host,
+        user=user,
+        password=password,
+        database=database
     )
     print("[SUCCESSFUL CONNECTION]")
     with connection.cursor() as cursor:
