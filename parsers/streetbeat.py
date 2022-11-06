@@ -1,5 +1,6 @@
 from database.requests import Request
 from enums.stores import Stores
+from utils.converter import Converter
 
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
@@ -47,6 +48,7 @@ class Streetbeat:
             timeout=15,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__default"))).get_attribute("innerHTML")
+        result = Converter.price(price)
 
-        print("[SUCCESS]", self, price)
-        return price
+        print("[SUCCESS]", self, result)
+        return result

@@ -1,8 +1,9 @@
+import re
+
+
 class Converter:
-    def price():
-        return False
-        # приводит цену в однообразный формат
-        # убирает пробелы, запятые, копейки, символы валют или их обозначения
+    def price(self):
+        return re.sub("[^0-9]", "", self)
 
     def sizes():
         return False

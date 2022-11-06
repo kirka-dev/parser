@@ -1,5 +1,6 @@
 from database.requests import Request
 from enums.stores import Stores
+from utils.converter import Converter
 
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
@@ -45,5 +46,7 @@ class Brandshop:
             timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "product-order__price-wrapper"))).text
-        print("[SUCCESS]", self, price)
-        return price
+        result = Converter.price(price)
+
+        print("[SUCCESS]", self, result)
+        return result

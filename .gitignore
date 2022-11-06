@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Custom
-config.py
+database/connection.py
 .idea

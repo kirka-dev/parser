@@ -1,10 +1,10 @@
 import psycopg2
-from config import host, user, password, database
+from database.connection import host, user, password, database
 from parsers.brandshop import Brandshop
+from parsers.lamoda import Lamoda
 from parsers.sneakerhead import Sneakerhead
 from parsers.streetbeat import Streetbeat
-from parsers.superster import Superstep
-from parsers.lamoda import Lamoda
+from parsers.superstep import Superstep
 
 try:
     connection = psycopg2.connect(
@@ -20,7 +20,6 @@ try:
         Streetbeat.start(cursor)
         Superstep.start(cursor)
         Lamoda.start(cursor)
-
 
 except Exception as _ex:
     print("[ERROR]: ", _ex)
