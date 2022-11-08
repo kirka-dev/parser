@@ -44,29 +44,11 @@ class Streetbeat:
         Streetbeat.browser.get(self)
         price = WebDriverWait(
             driver=Streetbeat.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="price-tag__discount" or @class="price-tag__default"]'))).get_attribute("innerHTML")
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
-        #try:
-            #price = WebDriverWait(
-                #driver=Streetbeat.browser,
-                #timeout=15,
-                #ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-            #).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__discount"))).get_attribute("innerHTML")
 
-        #except:
-            #price = WebDriverWait(
-                #driver=Streetbeat.browser,
-                #timeout=15,
-                #ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-            #).until(ec.presence_of_element_located((By.CLASS_NAME, "price-tag__default"))).get_attribute("innerHTML")
-
-        #finally:
-            #result = Converter.price(price)
-
-        #print("[SUCCESS]", self, result)
-        #return result

@@ -45,7 +45,7 @@ class Lamoda:
             driver=Lamoda.browser,
             timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.CLASS_NAME, "_price_11f1r_7"))).text
+        ).until(ec.presence_of_element_located((By.XPATH, '//span[@aria-label="Итоговая цена"]'))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
