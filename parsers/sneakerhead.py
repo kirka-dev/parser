@@ -45,8 +45,9 @@ class Sneakerhead:
             driver=Sneakerhead.browser,
             timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.CLASS_NAME, "product__price-value"))).text
+        ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="product__price-value"]'))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
+
