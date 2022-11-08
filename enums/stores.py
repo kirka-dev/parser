@@ -7,3 +7,4 @@ class Stores(Enum):
     brandshop = 3
     superstep = 4
     lamoda = 5
+    sportmaster = 6

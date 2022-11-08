@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium_stealth import stealth
 
 
-class Brandshop:
+class SportMaster:
     service = Service("../chromedriver/chromedriver.exe")
 
     desired_capabilities = DesiredCapabilities().CHROME
@@ -35,17 +35,17 @@ class Brandshop:
     )
 
     def start(self):
-        for price in Request.find_prices(self, Stores.brandshop.value):
-            Request.update_price(self, Brandshop.parser(price[2]), price[0])
-        Brandshop.browser.quit()
+        for price in Request.find_prices(self, Stores.sportmaster.value):
+            Request.update_price(self, SportMaster.parser(price[2]), price[0])
+        SportMaster.browser.quit()
 
     def parser(self):
-        Brandshop.browser.get(self)
+        SportMaster.browser.get(self)
         price = WebDriverWait(
-            driver=Brandshop.browser,
-            timeout=10,
+            driver=SportMaster.browser,
+            timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.CLASS_NAME, "product-order__price-wrapper"))).text
+        ).until(ec.presence_of_element_located((By.CLASS_NAME, "sm-text--text-32"))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
