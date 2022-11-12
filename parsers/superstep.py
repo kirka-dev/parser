@@ -43,7 +43,7 @@ class Superstep:
         Superstep.browser.get(self)
         price = WebDriverWait(
             driver=Superstep.browser,
-            timeout=15,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "product-detail__sale-price--black"))).text
         result = Converter.price(price)

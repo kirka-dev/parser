@@ -1,6 +1,7 @@
 from database.requests import Request
 from enums.stores import Stores
 from utils.converter import Converter
+
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
 from selenium.webdriver import DesiredCapabilities
@@ -42,7 +43,7 @@ class Fitnessplace:
         Fitnessplace.browser.get(self)
         price = WebDriverWait(
             driver=Fitnessplace.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "product-item-detail-price-current"))).text
         result = Converter.price(price)

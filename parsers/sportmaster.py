@@ -43,7 +43,7 @@ class SportMaster:
         SportMaster.browser.get(self)
         price = WebDriverWait(
             driver=SportMaster.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "sm-text--text-32"))).text
         result = Converter.price(price)

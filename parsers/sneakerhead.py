@@ -1,6 +1,7 @@
 from database.requests import Request
 from enums.stores import Stores
 from utils.converter import Converter
+
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
 from selenium.webdriver import DesiredCapabilities
@@ -9,9 +10,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium_stealth import stealth
-
-
-
 
 
 class Sneakerhead:
@@ -41,17 +39,14 @@ class Sneakerhead:
             Request.update_price(self, Sneakerhead.parser(price[2]), price[0])
         Sneakerhead.browser.quit()
 
-
     def parser(self):
         Sneakerhead.browser.get(self)
         price = WebDriverWait(
             driver=Sneakerhead.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="product__price-value"]'))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
-
-

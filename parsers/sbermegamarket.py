@@ -43,7 +43,7 @@ class Sbermegamarket:
         Sbermegamarket.browser.get(self)
         price = WebDriverWait(
             driver=Sbermegamarket.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.CLASS_NAME, "pdp-sales-block__price-final"))).text
         result = Converter.price(price)

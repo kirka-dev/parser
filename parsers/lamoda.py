@@ -43,7 +43,7 @@ class Lamoda:
         Lamoda.browser.get(self)
         price = WebDriverWait(
             driver=Lamoda.browser,
-            timeout=5,
+            timeout=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         ).until(ec.presence_of_element_located((By.XPATH, '//span[@aria-label="Итоговая цена"]'))).text
         result = Converter.price(price)

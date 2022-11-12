@@ -22,7 +22,6 @@ class Streetbeat:
     options.headless = True
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     options.add_argument("start-maximized")
-    options.add_argument("blink-settings=imagesEnabled=false")
     browser = webdriver.Chrome(service=service, desired_capabilities=desired_capabilities, options=options)
 
     stealth(
@@ -42,12 +41,22 @@ class Streetbeat:
 
     def parser(self):
         Streetbeat.browser.get(self)
-        price = WebDriverWait(
-            driver=Streetbeat.browser,
-            timeout=10,
-            ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="price-tag__discount" or @class="price-tag__default"]'))).get_attribute("innerHTML")
-        result = Converter.price(price)
+
+        try:
+            price = WebDriverWait(
+                driver=Streetbeat.browser,
+                timeout=10,
+                ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+            ).until(ec.presence_of_element_located((
+                By.CLASS_NAME,
+                "price-tag__discount" or "price-tag__default"
+            ))).get_attribute("innerHTML")
+
+        except Exception as _ex:
+            print("[PARSER ERROR]: ", _ex)
+
+        else:
+            result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
