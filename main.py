@@ -1,4 +1,6 @@
 import psycopg2
+from concurrent import futures
+from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 
 from database.connection import host, user, password, database
@@ -22,10 +24,10 @@ parsers = [
     Lamoda.start,
     Rendezvous.start,
     Sbermegamarket.start,
+    Superstep.start,
     Sneakerhead.start,
     SportMaster.start,
     Streetbeat.start,
-    Superstep.start,
 ]
 
 try:
@@ -41,6 +43,9 @@ try:
         with ThreadPoolExecutor(max_workers=2) as executor:
             for parser in parsers:
                 executor.submit(parser, cursor)
+
+            for future in as_completed(futures):
+                result = future.result()
 
 except Exception as _ex:
     print("[ERROR]: ", _ex)
