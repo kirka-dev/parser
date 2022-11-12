@@ -11,10 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium_stealth import stealth
 
 
-
-
-
-class Sneakerhead:
+class Henderson:
     service = Service("../chromedriver/chromedriver.exe")
 
     desired_capabilities = DesiredCapabilities().CHROME
@@ -37,21 +34,18 @@ class Sneakerhead:
     )
 
     def start(self):
-        for price in Request.find_prices(self, Stores.sneakerhead.value):
-            Request.update_price(self, Sneakerhead.parser(price[2]), price[0])
-        Sneakerhead.browser.quit()
-
+        for price in Request.find_prices(self, Stores.henderson.value):
+            Request.update_price(self, Henderson.parser(price[2]), price[0])
+        Henderson.browser.quit()
 
     def parser(self):
-        Sneakerhead.browser.get(self)
+        Henderson.browser.get(self)
         price = WebDriverWait(
-            driver=Sneakerhead.browser,
+            driver=Henderson.browser,
             timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="product__price-value"]'))).text
+        ).until(ec.presence_of_element_located((By.CLASS_NAME, "pp_price"))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
-
-

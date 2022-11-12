@@ -1,6 +1,7 @@
 from database.requests import Request
 from enums.stores import Stores
 from utils.converter import Converter
+
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, NoSuchElementException
 from selenium.webdriver import DesiredCapabilities
@@ -11,10 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium_stealth import stealth
 
 
-
-
-
-class Sneakerhead:
+class Sbermegamarket:
     service = Service("../chromedriver/chromedriver.exe")
 
     desired_capabilities = DesiredCapabilities().CHROME
@@ -37,21 +35,18 @@ class Sneakerhead:
     )
 
     def start(self):
-        for price in Request.find_prices(self, Stores.sneakerhead.value):
-            Request.update_price(self, Sneakerhead.parser(price[2]), price[0])
-        Sneakerhead.browser.quit()
-
+        for price in Request.find_prices(self, Stores.sbermegamarket.value):
+            Request.update_price(self, Sbermegamarket.parser(price[2]), price[0])
+        Sbermegamarket.browser.quit()
 
     def parser(self):
-        Sneakerhead.browser.get(self)
+        Sbermegamarket.browser.get(self)
         price = WebDriverWait(
-            driver=Sneakerhead.browser,
+            driver=Sbermegamarket.browser,
             timeout=5,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-        ).until(ec.presence_of_element_located((By.XPATH, '//span[@class="product__price-value"]'))).text
+        ).until(ec.presence_of_element_located((By.CLASS_NAME, "pdp-sales-block__price-final"))).text
         result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
-
-

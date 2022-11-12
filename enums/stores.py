@@ -8,3 +8,8 @@ class Stores(Enum):
     superstep = 4
     lamoda = 5
     sportmaster = 6
+    sbermegamarket = 7
+    rendezvous = 8
+    fitnessplace = 9
+    henderson = 10
+    guess = 11
