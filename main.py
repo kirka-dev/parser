@@ -41,8 +41,7 @@ try:
 
     with connection.cursor() as cursor:
         with ThreadPoolExecutor(max_workers=2) as executor:
-            for parser in parsers:
-                executor.submit(parser, cursor)
+            futures = [executor.submit(parser, cursor) for parser in parsers]
 
             for future in as_completed(futures):
                 result = future.result()
