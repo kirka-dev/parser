@@ -1,7 +1,7 @@
 import psycopg2
+from datetime import datetime
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
-
 from database.connection import host, user, password, database
 from parsers.brandshop import Brandshop
 from parsers.fitnessplace import Fitnessplace
@@ -36,20 +36,20 @@ try:
         password=password,
         database=database
     )
-    print("[SUCCESSFUL CONNECTION]")
+    print("[SUCCESSFUL CONNECTION]", datetime.now())
 
     with connection.cursor() as cursor:
-        with ThreadPoolExecutor(max_workers=2) as executor:
+        with ThreadPoolExecutor(max_workers=5) as executor:
             futures = [executor.submit(parser, cursor) for parser in parsers]
 
             for future in as_completed(futures):
                 result = future.result()
 
 except Exception as _ex:
-    print("[ERROR]: ", _ex)
+    print("[ERROR]:", _ex)
 
 finally:
     if connection:
         connection.commit()
         connection.close()
-        print("[CLOSE CONNECTION]")
+        print("[CLOSE CONNECTION]", datetime.now())

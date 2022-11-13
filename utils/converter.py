@@ -3,6 +3,7 @@ import re
 
 class Converter:
     def price(self):
+        # TODO: Убирать нули после точки
         return re.sub("[^0-9]", "", self)
 
     def sizes():
