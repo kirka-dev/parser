@@ -1,5 +1,4 @@
 import psycopg2
-from concurrent import futures
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 

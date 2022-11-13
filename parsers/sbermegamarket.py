@@ -15,14 +15,11 @@ from selenium_stealth import stealth
 class Sbermegamarket:
     service = Service("../chromedriver/chromedriver.exe")
 
-    desired_capabilities = DesiredCapabilities().CHROME
-    desired_capabilities["pageLoadStrategy"] = "none"
-
     options = webdriver.ChromeOptions()
     options.headless = True
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     options.add_argument("start-maximized")
-    browser = webdriver.Chrome(service=service, desired_capabilities=desired_capabilities, options=options)
+    browser = webdriver.Chrome(service=service, options=options)
 
     stealth(
         browser,

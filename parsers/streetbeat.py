@@ -15,14 +15,11 @@ from selenium_stealth import stealth
 class Streetbeat:
     service = Service("../chromedriver/chromedriver")
 
-    desired_capabilities = DesiredCapabilities().CHROME
-    desired_capabilities["pageLoadStrategy"] = "none"
-
     options = webdriver.ChromeOptions()
     options.headless = True
     options.add_experimental_option("excludeSwitches", ['enable-automation'])
     options.add_argument("start-maximized")
-    browser = webdriver.Chrome(service=service, desired_capabilities=desired_capabilities, options=options)
+    browser = webdriver.Chrome(service=service, options=options)
 
     stealth(
         browser,
@@ -41,22 +38,15 @@ class Streetbeat:
 
     def parser(self):
         Streetbeat.browser.get(self)
-
-        try:
-            price = WebDriverWait(
-                driver=Streetbeat.browser,
-                timeout=10,
-                ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
-            ).until(ec.presence_of_element_located((
-                By.CLASS_NAME,
-                "price-tag__discount" or "price-tag__default"
-            ))).get_attribute("innerHTML")
-
-        except Exception as _ex:
-            print("[PARSER ERROR]: ", _ex)
-
-        else:
-            result = Converter.price(price)
+        price = WebDriverWait(
+            driver=Streetbeat.browser,
+            timeout=10,
+            ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+        ).until(ec.presence_of_element_located((
+            By.CLASS_NAME,
+            "price-tag__discount" or "price-tag__default"
+        ))).get_attribute("innerHTML")
+        result = Converter.price(price)
 
         print("[SUCCESS]", self, result)
         return result
