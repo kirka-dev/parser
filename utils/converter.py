@@ -4,7 +4,7 @@ import re
 class Converter:
     def price(self):
         # TODO: Убирать нули после точки
-        return re.sub("[^0-9]", "", self)
+        return re.sub(r'\.00|\D', "", self)
 
     def sizes():
         return False
